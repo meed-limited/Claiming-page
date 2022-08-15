@@ -1,18 +1,20 @@
 import { useWeb3React } from "@web3-react/core";
-import { Divider } from "antd";
-import { Infos } from "./components/Infos";
-import { SignMessage } from "./components/SignMessage";
+import React from "react";
+import { CheckEligibility } from "./components/CheckEligibility";
+import { ClaimToken } from "./components/ClaimToken";
+
 import { Status } from "./components/Status";
-import { TransferEth } from "./components/TransferEth";
 
 const styles = {
   container: {
-    background: "#f5f4f4",
+    background: "white",
     width: "70%",
-    textAlign: "center",
+    border: "solid #75e287 1px",
+    borderRadius: "20px",
     margin: "auto",
+    textAlign: "center",
     padding: "30px 0",
-    borderRadius: "20px"
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 3px 10px"
   },
   title: {
     color: "black",
@@ -27,26 +29,17 @@ const styles = {
   }
 } as const;
 
-const DisplayPane = () => {
-  const { chainId, isActivating, error, isActive } = useWeb3React();
+const DisplayPane: React.FC = () => {
+  const { isActivating, error, isActive } = useWeb3React();
+  const [isEligible, setIsEligible] = React.useState<boolean>(false);
 
   return (
     <div style={styles.container}>
-      <div style={styles.title}>Display Info</div>
+      <div style={styles.title}>Claiming Page</div>
       <div style={styles.content}>
         <Status isActivating={isActivating} error={error} isActive={isActive} />
-        <Infos chainId={chainId} />
-
-        {isActive && (
-          <>
-            <Divider />
-            <div style={{ display: "inline-flex", gap: "20px" }}>
-              <SignMessage />
-              <Divider type="vertical" style={{ fontSize: "120px !important" }} />
-              <TransferEth />
-            </div>
-          </>
-        )}
+        <CheckEligibility isEligible={isEligible} setIsEligible={setIsEligible} />
+        {isEligible && <ClaimToken />}
       </div>
     </div>
   );

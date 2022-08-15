@@ -1,8 +1,8 @@
 import { Buffer } from "buffer";
 import ConnectAccount from "./components/Account/ConnectAccount";
 import DisplayPane from "./components/displayPane/DisplayPane";
-import background from "./assets/images/background.jpg";
-import web3Boilerplate_logo from "./assets/images/web3Boilerplate_logo.png";
+import background from "./assets/images/background.png";
+import LepriconLogo_Black from "./assets/images/LepriconLogo_Black.png";
 import { Layout } from "antd";
 import "./App.css";
 import "antd/dist/antd.css";
@@ -88,12 +88,6 @@ function App() {
   );
 }
 
-export const Logo = () => {
-  return (
-    <div style={{ paddingTop: "20px" }}>
-      <img src={web3Boilerplate_logo} alt="web3Boilerplate_logo" width="120px" />;
-    </div>
-  );
-};
+export const Logo = () => <img src={LepriconLogo_Black} alt="LepriconLogo_Black" width="130px" />;
 
 export default App;
