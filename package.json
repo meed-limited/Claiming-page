@@ -4,7 +4,7 @@
   "author": "Pedrojok01 <pedrojok@pm.me>",
   "scripts": {
     "dev": "concurrently \"nodemon server/server.ts\" \"react-scripts start\"",
-    "start": "NODE_ENV=production concurrently \"pm2 start server/server.ts\" \"react-scripts start\"",
+    "start": "concurrently \"ts-node server/server.ts\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

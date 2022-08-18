@@ -24,7 +24,7 @@ export const ClaimToken: React.FC<any> = () => {
       const response = await putRequestCall(account);
       console.log(response);
 
-      const tx: any = await claimToken(response.data, signer);
+      const tx = await claimToken(response.data, signer);
       const receipt = await tx.wait(2);
       console.log(receipt);
     }

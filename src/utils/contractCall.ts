@@ -13,7 +13,10 @@ const whitelist = getWhitelistAddress();
 // Instances:
 // const tokenInstance = new ethers.Contract(token, token_ABI, provider);
 
-export const checkEligibility = async (account: string, signer: any): Promise<any> => {
+export const checkEligibility = async (
+  account: string,
+  signer: ethers.Signer | ethers.providers.Provider | undefined
+): Promise<any> => {
   if (!account) {
     window.alert("Wallet not connected");
     return;
@@ -24,23 +27,23 @@ export const checkEligibility = async (account: string, signer: any): Promise<an
   try {
     const receipt = await whitelistInstance.isAmountClaimable(account);
     return receipt;
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
   }
 };
 
-export const claimToken = async (merkleProof: string[], signer: any): Promise<any> => {
+export const claimToken = async (
+  merkleProof: string[],
+  signer: ethers.Signer | ethers.providers.Provider | undefined
+): Promise<any> => {
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
   console.log(merkleProof);
 
   try {
-    // const tx = await whitelistInstance.claim(merkleProof);
-    // const receipt = await tx.await(2);
-    // console.log(receipt);
     const receipt = await whitelistInstance.claim(merkleProof);
     console.log(receipt);
     return receipt;
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
   }
 };

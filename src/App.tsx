@@ -54,7 +54,7 @@ const styles = {
     textAlign: "center",
     width: "100%",
     bottom: "0",
-    color: "white",
+    fontWeight: "800",
     backgroundColor: "transparent"
   }
 } as const;
@@ -77,11 +77,10 @@ function App() {
 
       <Footer style={styles.footer}>
         <div style={{ display: "block" }}>
-          Please leave a ⭐️ on this{" "}
-          <a href="https://github.com/Pedrojok01/Web3-Boilerplate" target="_blank" rel="noopener noreferrer">
-            boilerplate
+          Powered By{" "}
+          <a href="https://www.lepricon.io/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "18px" }}>
+            Lepricon.io
           </a>
-          , if you like it!
         </div>
       </Footer>
     </Layout>

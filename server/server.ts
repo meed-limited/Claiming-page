@@ -5,7 +5,7 @@ import cors from "cors";
 import { createMerkleTree, getProof } from "./utils/proofHelpers";
 import { generateToken } from "./middleware/auth";
 
-const PORT = process.env.REACT_APP_SERVER_PORT || 3000;
+const PORT = process.env.SERVER_PORT || 3000;
 import { protect } from "./middleware/auth";
 
 const app: Express = express();
@@ -27,7 +27,6 @@ app.use((_req: Request, res: Response, next) => {
 // Create a GET route
 app.post("/api/getHexProof", protect, (req, res) => {
   const account: string = req.body.user;
-  console.log("account", account);
 
   try {
     const proof = getProof(account);
