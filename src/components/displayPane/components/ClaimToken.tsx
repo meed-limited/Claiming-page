@@ -1,7 +1,7 @@
 import React from "react";
 import { useWeb3React } from "@web3-react/core";
 import { claimToken } from "../../../utils/contractCall";
-import { putRequestCall } from "../../../utils/backendCall";
+import { isMerkleOK } from "../../../utils/backendCall";
 import { Button } from "antd";
 
 const styles = {
@@ -21,11 +21,12 @@ export const ClaimToken: React.FC<any> = () => {
 
   const handleClick = async () => {
     if (account) {
-      const response = await putRequestCall(account);
+      // Backend call: Compare proof with merkel tree
+      const response = await isMerkleOK(account);
       console.log(response);
 
-      const tx = await claimToken(response.data, signer);
-      const receipt = await tx.wait(2);
+      // Contract call: claim tokens if claimable amount + whitelisted
+      const receipt = await claimToken(response.data, signer);
       console.log(receipt);
     }
     return;

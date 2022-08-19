@@ -8,7 +8,7 @@ export const WHITELIST_CONTRACT = ""; // BSC
 
 // Development
 export const TOKEN_TEST = "0xE413Bfbc963fdB56Fe12A2501aa58cD4913553ef";
-export const WHITELIST_CONTRACT_TEST = "0x4167A73737e273c95CD0A644b28403D711Efe48d"; // BSC test
+export const WHITELIST_CONTRACT_TEST = "0x504d9046B85a543FF7d29B39d6906E4354b2B700"; // BSC test
 
 // Nodes:
 export const BSC_PROVIDER = process.env.REACT_APP_NODE_BSC;
