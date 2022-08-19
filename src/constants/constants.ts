@@ -15,7 +15,8 @@ export const BSC_PROVIDER = process.env.REACT_APP_NODE_BSC;
 export const BSC_TEST_PROVIDER = process.env.REACT_APP_NODE_BSC_TEST;
 
 // API endpoint
-export const API_URL = isProdEnv ? process.env.REACT_APP_API_ENDPOINT : process.env.REACT_APP_API_ENDPOINT_TEST;
+// export const API_URL = isProdEnv ? process.env.REACT_APP_API_ENDPOINT : process.env.REACT_APP_API_ENDPOINT_TEST;
+export const API_URL = process.env.REACT_APP_API_ENDPOINT;
 
 export const getTokenAddress = () => {
   if (isProdEnv) {
