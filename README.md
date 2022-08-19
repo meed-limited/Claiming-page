@@ -28,7 +28,7 @@
 ### Once your config is ready, create a new repo, open your favorite code editor, and clone the repo with the following cmd:
 
 ```
-git clone https://github.com/Pedrojok01/Web3-Boilerplate.git .
+git clone https://github.com/shamrockstudios/Claiming-page .
 ```
 
 ### Install all package dependancies by running:
