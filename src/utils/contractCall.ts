@@ -22,9 +22,8 @@ export const checkEligibility = async (
     return;
   }
 
-  console.log("account", account);
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
-  console.log("whitelistInstance", whitelistInstance);
+  console.log("whitelist", whitelist);
 
   try {
     const receipt = await whitelistInstance.isAmountClaimable(account);
