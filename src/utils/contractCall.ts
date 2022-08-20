@@ -40,7 +40,6 @@ export const claimToken = async (
   console.log(merkleProof);
 
   try {
-    console.log("whitelistInstance", whitelistInstance);
     const tx = await whitelistInstance.claim(merkleProof);
     const receipt = await tx.wait(2);
     return receipt;
