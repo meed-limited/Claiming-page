@@ -23,7 +23,6 @@ export const CheckEligibility: React.FC<any> = ({ isEligible, setIsEligible }): 
 
   const handleClick = async () => {
     if (account) {
-      console.log("account", account);
       const res = await checkEligibility(account, signer);
       console.log(res);
       setHasChecked(true);
