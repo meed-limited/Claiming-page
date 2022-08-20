@@ -22,10 +22,13 @@ export const checkEligibility = async (
     return;
   }
 
+  console.log("account", account);
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
+  console.log("whitelistInstance", whitelistInstance);
 
   try {
     const receipt = await whitelistInstance.isAmountClaimable(account);
+    console.log("receipt", receipt);
     return receipt;
   } catch (error) {
     console.log(error);
