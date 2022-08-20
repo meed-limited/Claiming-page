@@ -4,7 +4,7 @@ export const MERKLE_ROOT = "0x5d562679df5117898677aada33ece1e11156c211b7ec7b36b0
 
 // Production
 export const TOKEN = "";
-export const WHITELIST_CONTRACT = ""; // BSC
+export const WHITELIST_CONTRACT = "0x504d9046B85a543FF7d29B39d6906E4354b2B700"; // BSC
 
 // Development
 export const TOKEN_TEST = "0xE413Bfbc963fdB56Fe12A2501aa58cD4913553ef";
