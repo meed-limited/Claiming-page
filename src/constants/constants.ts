@@ -1,4 +1,5 @@
-const isProdEnv = process.env.NODE_ENV === "production" ? true : false;
+export const isProdEnv = process.env.NODE_ENV === "production" ? true : false;
+export const MAX_INT = 2 ** 256 - 1;
 
 export const MERKLE_ROOT = "0x5d562679df5117898677aada33ece1e11156c211b7ec7b36b0dc608800bd022e"; // To Edit
 

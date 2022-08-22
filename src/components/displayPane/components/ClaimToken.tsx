@@ -44,7 +44,7 @@ export const ClaimToken: React.FC<any> = ({ amount }) => {
 
   const handleOK = () => {
     setIsModalVisible(false);
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (
