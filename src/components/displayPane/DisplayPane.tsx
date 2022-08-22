@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React from "react";
+import React, { useState } from "react";
 import { CheckEligibility } from "./components/CheckEligibility";
 import { ClaimToken } from "./components/ClaimToken";
 
@@ -31,15 +31,16 @@ const styles = {
 
 const DisplayPane: React.FC = () => {
   const { isActivating, error, isActive } = useWeb3React();
-  const [isEligible, setIsEligible] = React.useState<boolean>(false);
+  const [isEligible, setIsEligible] = useState<boolean>(false);
+  const [amount, setAmount] = useState<number>(0);
 
   return (
     <div style={styles.container}>
       <div style={styles.title}>Claiming Page</div>
       <div style={styles.content}>
         <Status isActivating={isActivating} error={error} isActive={isActive} />
-        <CheckEligibility isEligible={isEligible} setIsEligible={setIsEligible} />
-        {isEligible && <ClaimToken />}
+        <CheckEligibility isEligible={isEligible} setIsEligible={setIsEligible} amount={amount} setAmount={setAmount} />
+        {isEligible && <ClaimToken amount={amount} />}
       </div>
     </div>
   );

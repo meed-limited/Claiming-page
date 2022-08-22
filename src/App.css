@@ -32,9 +32,7 @@ border: none !important;
   font-weight: 500 !important;
 }
 
-.ant-modal {
-  display: flex !important;
-  width: 70vw !important;
-  justify-content: center !important;
-  align-items: center !important;
+.ant-modal-content {
+  border-radius: 15px !important;
+  /* background-image: url("./assets/images/background.png") !important; */
 }

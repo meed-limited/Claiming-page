@@ -14,11 +14,10 @@ const styles = {
   }
 } as const;
 
-export const CheckEligibility: React.FC<any> = ({ isEligible, setIsEligible }): ReactElement => {
+export const CheckEligibility: React.FC<any> = ({ isEligible, setIsEligible, amount, setAmount }): ReactElement => {
   const { account, provider } = useWeb3React();
-  const [hasChecked, setHasChecked] = React.useState<boolean>(false);
+  const [hasChecked, setHasChecked] = useState<boolean>(false);
 
-  const [amount, setAmount] = useState<number>(0);
   const signer = provider?.getSigner();
 
   const handleClick = async () => {

@@ -41,9 +41,10 @@ export const claimToken = async (
 
   try {
     const tx = await whitelistInstance.claim(merkleProof);
-    const receipt = await tx.wait(2);
-    return receipt;
+    await tx.wait(2);
+
+    return { success: true, txHash: tx.hash };
   } catch (error: any) {
-    console.log(error);
+    return { success: false };
   }
 };

@@ -99,6 +99,7 @@ const ConnectAccount: React.FC<WantedChain> = (props) => {
               fontSize: "17px",
               fontWeight: "500"
             }}
+            width="35vw"
           >
             <div style={styles.modalTitle}>Connect Your Wallet</div>
 
