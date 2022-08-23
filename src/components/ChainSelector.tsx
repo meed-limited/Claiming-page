@@ -57,8 +57,8 @@ function ChainSelector() {
   }, [chainId]);
 
   const menuItems: MenuItem[] = [
-    getItem("1", "Ethereum", "Ethereum", labelToShow(ethereum_Logo, "Ethereum_logo")),
-    getItem("5", "Goerli Testnet", "Goerli Testnet", labelToShow(ethereum_Logo, "Ethereum_logo")),
+    // getItem("1", "Ethereum", "Ethereum", labelToShow(ethereum_Logo, "Ethereum_logo")),
+    // getItem("5", "Goerli Testnet", "Goerli Testnet", labelToShow(ethereum_Logo, "Ethereum_logo")),
     getItem("56", "BNB Chain", "BNB Chain", labelToShow(bsc_Logo, "BNB_logo")),
     getItem("97", "BNB Testnet", "BNB Testnet", labelToShow(bsc_Logo, "BNB_logo"))
   ];

@@ -13,7 +13,9 @@ const styles = {
     textAlign: "center",
     margin: "auto",
     padding: "30px 0",
-    borderRadius: "20px"
+    border: "solid #75e287 1px",
+    borderRadius: "20px",
+    boxShadow: "rgba(0, 0, 0, 0.35) 0px 3px 10px"
   },
   title: {
     fontWeight: 600,
@@ -24,6 +26,10 @@ const styles = {
     color: "black",
     fontSize: "20px",
     marginTop: "10px"
+  },
+  setterButton: {
+    backgroundColor: "#1736cf",
+    marginBottom: "20px"
   },
   backButton: {
     height: "30px",
@@ -118,27 +124,20 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
     }
   };
 
-  // addWalletsToWhitelist(address[] memory wallets, uint256[] memory amounts)
   /* Add users to the whitelist:
    *******************************/
   const addUserToWhitelist = async () => {
     if (addresses && amounts) {
-      console.log("signer", signer);
-      console.log("addresses", addresses);
-      console.log("amounts", amounts);
       try {
         const res = await addUsers(addresses, amounts, signer);
         if (res.success) {
           const title = "All set!";
-          const msg = "New contract owner set successfully.";
+          const msg = "Users added to whitelist successfully.";
           openNotification("success", title, msg);
-          setNewOwnerAdd(undefined);
-          setOwnerAddress(undefined);
-          setIsOwnerPaneOpen(false);
         }
       } catch (error) {
         const title = "Unexpected error";
-        const msg = "Oops, something went wrong while changing the owner address. Please try again.";
+        const msg = "Oops, something went wrong while adding users. Please try again.";
         openNotification("error", title, msg);
         console.log(error);
       }
@@ -149,24 +148,22 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
     <div style={styles.container}>
       <div style={styles.title}>Admin Panel</div>
       <Divider />
-      <p style={{ fontSize: "15px", paddingBottom: "10px" }}>Edit staking yields APR</p>
-      <div style={{ width: "60%", margin: "auto" }}>
+      <p style={{ fontSize: "17px", fontWeight: "600" }}>Add users and their respective claimable amounts</p>
+      <div style={{ width: "70%", margin: "auto" }}>
         <CsvUploader setAddresses={setAddresses} setAmounts={setAmounts} />
-        <Button type="primary" onClick={addUserToWhitelist} style={{ marginTop: "5px", marginBottom: "20px" }}>
+        <Button type="primary" onClick={addUserToWhitelist} style={{ ...styles.setterButton, marginTop: "5px" }}>
           Add to whitelist
         </Button>
 
         <Divider />
-        <p style={{ fontSize: "15px", paddingBottom: "10px" }}>
-          Whitelist contract: Set Merkle Root / Transfer Ownership / Withdraw Balance
-        </p>
+        <p style={{ fontSize: "17px", fontWeight: "600" }}>Set Merkle Root / Transfer Ownership / Withdraw Balance</p>
 
         <Input
           style={{ marginBottom: "5px" }}
           placeholder="Enter the new Merkle Root"
           onChange={(e) => setNewRoot(e.target.value)}
         />
-        <Button type="primary" onClick={editMerkleRoot} style={{ marginBottom: "20px" }}>
+        <Button style={styles.setterButton} type="primary" onClick={editMerkleRoot}>
           Set Merkle Root
         </Button>
 
@@ -175,7 +172,7 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
           placeholder="Enter the new owner address (smart-contract owner)"
           onChange={setNewOwnerAdd}
         />
-        <Button type="primary" onClick={setWhitelistOwner} style={{ marginBottom: "20px" }}>
+        <Button type="primary" onClick={setWhitelistOwner} style={styles.setterButton}>
           Transfer Ownership
         </Button>
 
@@ -184,7 +181,7 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
           placeholder="Enter the address that will receive the funds..."
           onChange={setWithdrawAdd}
         />
-        <Button type="primary" onClick={wihdrawContractBalance} style={{ marginBottom: "20px" }}>
+        <Button type="primary" onClick={wihdrawContractBalance} style={styles.setterButton}>
           Withdraw Balance
         </Button>
       </div>
