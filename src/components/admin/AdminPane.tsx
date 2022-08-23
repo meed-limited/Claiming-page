@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import AddressInput from "../AddressInput";
 import { openNotification } from "../../utils/notifications";
-import { Button, Divider, Input } from "antd";
-import { addUsers, setMerkleRoot, setNewOwner, withdrawBalance } from "../../utils/contractCall";
+import { Button, Divider, Input, InputNumber } from "antd";
+import { addUsers, sendAmount, setMerkleRoot, setNewOwner, withdrawBalance } from "../../utils/contractCall";
 import CsvUploader from "./CsvUploader";
 import { getMerkle } from "../../utils/backendCall";
 
@@ -51,10 +51,12 @@ interface Props {
 const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
   const { provider } = useWeb3React();
   const [newRoot, setNewRoot] = useState<string>();
+  const [depositAmount, setDepositAmount] = useState<number>();
   const [newOwnerAdd, setNewOwnerAdd] = useState<string>();
   const [withdrawAdd, setWithdrawAdd] = useState<string>();
   const [addresses, setAddresses] = useState<any>();
   const [amounts, setAmounts] = useState<any>();
+  setDepositAmount;
 
   const signer = provider?.getSigner();
 
@@ -88,10 +90,32 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
           const title = "All set!";
           const msg = "New Merkle Root set successfully.";
           openNotification("success", title, msg);
+          setNewRoot(undefined);
         }
       } catch (error) {
         const title = "Unexpected error";
         const msg = "Oops, something went wrong while changing the Merkle Root. Please try again.";
+        openNotification("error", title, msg);
+        console.log(error);
+      }
+    }
+  };
+
+  /* Deposit tokens to contract:
+   ********************************/
+  const depositToContract = async () => {
+    if (depositAmount) {
+      try {
+        const res = await sendAmount(depositAmount, signer);
+        if (res.success) {
+          const title = "Done!";
+          const msg = `${depositAmount} LPR have been sent to the whitelist contract.`;
+          openNotification("success", title, msg);
+          setDepositAmount(undefined);
+        }
+      } catch (error) {
+        const title = "Unexpected error";
+        const msg = "Oops, something went wrong while sending the tokens. Please try again.";
         openNotification("error", title, msg);
         console.log(error);
       }
@@ -131,6 +155,7 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
           setNewOwnerAdd(undefined);
           setOwnerAddress(undefined);
           setIsOwnerPaneOpen(false);
+          window.location.reload();
         }
       } catch (error) {
         const title = "Unexpected error";
@@ -187,6 +212,19 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
         <Button style={{ ...styles.setterButton, marginLeft: "10px" }} type="primary" onClick={editMerkleRoot}>
           Set Merkle Root
         </Button>
+
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <InputNumber
+            style={{ marginBottom: "5px", width: "100%" }}
+            placeholder="Enter the amount to deposit"
+            value={depositAmount}
+            min={0}
+            onChange={(value: number) => setDepositAmount(value)}
+          />
+          <Button type="primary" onClick={depositToContract} style={styles.setterButton}>
+            Deposit to contract
+          </Button>
+        </div>
 
         <AddressInput
           style={{ marginBottom: "5px" }}

@@ -1,7 +1,9 @@
 import { ethers } from "ethers";
 import whitelist_ABI from "../abi/Whitelist_ABI.json";
-import { getWhitelistAddress } from "../constants/constants";
+import Token_ABI from "../abi/Token_ABI.json";
+import { getTokenAddress, getWhitelistAddress } from "../constants/constants";
 
+const token = getTokenAddress();
 const whitelist = getWhitelistAddress();
 
 /* Get the staking contract's admin address :
@@ -116,6 +118,24 @@ export const addUsers = async (
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
   try {
     const tx = await whitelistInstance.addWalletsToWhitelist(addresses, amounts);
+    const receipt = await tx.wait(2);
+    return { success: true, data: receipt };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
+};
+
+/* Allow owner to deposit tokens to contract:
+ *********************************************/
+export const sendAmount = async (
+  amount: number,
+  signer: ethers.Signer | ethers.providers.Provider | undefined
+): Promise<any> => {
+  const tokenInstance = new ethers.Contract(token, Token_ABI, signer);
+  const BN = ethers.utils.parseUnits(amount.toString(), 18);
+  try {
+    const tx = await tokenInstance.transfer(whitelist, BN);
     const receipt = await tx.wait(2);
     return { success: true, data: receipt };
   } catch (error) {
