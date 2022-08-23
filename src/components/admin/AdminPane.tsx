@@ -5,6 +5,7 @@ import { openNotification } from "../../utils/notifications";
 import { Button, Divider, Input } from "antd";
 import { addUsers, setMerkleRoot, setNewOwner, withdrawBalance } from "../../utils/contractCall";
 import CsvUploader from "./CsvUploader";
+import { getMerkle } from "../../utils/backendCall";
 
 const styles = {
   container: {
@@ -61,6 +62,22 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
     setIsOwnerPaneOpen(false);
   };
 
+  /* Get the whitelist Merkle root:
+   *********************************/
+  const getRoot = async () => {
+    try {
+      const res = await getMerkle();
+      if (res.success) {
+        setNewRoot(res.data);
+      }
+    } catch (error) {
+      const title = "Unexpected error";
+      const msg = "Oops, something went wrong while getting the Merkle Root. Please try again.";
+      openNotification("error", title, msg);
+      console.log(error);
+    }
+  };
+
   /* Add or Edit the Merkle root:
    ********************************/
   const editMerkleRoot = async () => {
@@ -101,7 +118,7 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
     }
   };
 
-  /* Transfer the ownershiop of the whitelist contract:
+  /* Transfer the ownership of the whitelist contract:
    ******************************************************/
   const setWhitelistOwner = async () => {
     if (newOwnerAdd) {
@@ -161,9 +178,13 @@ const AdminPane = ({ setOwnerAddress, setIsOwnerPaneOpen }: Props) => {
         <Input
           style={{ marginBottom: "5px" }}
           placeholder="Enter the new Merkle Root"
+          value={newRoot}
           onChange={(e) => setNewRoot(e.target.value)}
         />
-        <Button style={styles.setterButton} type="primary" onClick={editMerkleRoot}>
+        <Button style={{ ...styles.setterButton, marginRight: "10px" }} type="primary" onClick={getRoot}>
+          Get Merkle Root
+        </Button>
+        <Button style={{ ...styles.setterButton, marginLeft: "10px" }} type="primary" onClick={editMerkleRoot}>
           Set Merkle Root
         </Button>
 

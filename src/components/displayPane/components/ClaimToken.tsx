@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { claimToken } from "../../../utils/contractCall";
-import { isMerkleOK } from "../../../utils/backendCall";
+import { checkMerkleProof } from "../../../utils/backendCall";
 import { Button, Modal } from "antd";
 import { getExplorer } from "../../../constants/networks";
 import { FileSearchOutlined } from "@ant-design/icons";
@@ -26,7 +26,7 @@ export const ClaimToken: React.FC<any> = ({ amount }) => {
   const handleClick = async () => {
     if (account) {
       // Backend call: Compare proof with merkel tree
-      const response = await isMerkleOK(account);
+      const response = await checkMerkleProof(account);
       console.log(response);
 
       // Contract call: claim tokens if claimable amount + whitelisted

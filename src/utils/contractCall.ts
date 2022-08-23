@@ -65,7 +65,7 @@ export const setMerkleRoot = async (
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
   try {
     const tx = await whitelistInstance.setMerkleRoot(merkleRoot);
-    const receipt = tx.wait(2);
+    const receipt = await tx.wait(2);
     return { success: true, data: receipt };
   } catch (error) {
     console.log(error);
@@ -82,7 +82,7 @@ export const setNewOwner = async (
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
   try {
     const tx = await whitelistInstance.transferOwnership(ownerAdd);
-    const receipt = tx.wait(2);
+    const receipt = await tx.wait(2);
     return { success: true, data: receipt };
   } catch (error) {
     console.log(error);
@@ -99,7 +99,7 @@ export const withdrawBalance = async (
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
   try {
     const tx = await whitelistInstance.withdraw(to);
-    const receipt = tx.wait(2);
+    const receipt = await tx.wait(2);
     return { success: true, data: receipt };
   } catch (error) {
     console.log(error);
@@ -117,7 +117,7 @@ export const addUsers = async (
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
   try {
     const tx = await whitelistInstance.addWalletsToWhitelist(addresses, amounts);
-    const receipt = tx.wait(2);
+    const receipt = await tx.wait(2);
     return { success: true, data: receipt };
   } catch (error) {
     console.log(error);
