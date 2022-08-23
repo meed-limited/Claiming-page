@@ -17,13 +17,14 @@ const styles = {
   }
 } as const;
 
-export const ClaimToken: React.FC<any> = ({ amount }) => {
+export const ClaimToken: React.FC<any> = ({ amount, setLoading }) => {
   const { account, provider, chainId } = useWeb3React();
   const signer = provider?.getSigner();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [explorerLink, setExplorerLink] = useState("");
 
   const handleClick = async () => {
+    setLoading(true);
     if (account) {
       // Backend call: Compare proof with merkel tree
       const response = await checkMerkleProof(account);
@@ -38,6 +39,7 @@ export const ClaimToken: React.FC<any> = ({ amount }) => {
         setIsModalVisible(true);
       }
     }
+    setLoading(false);
     return;
   };
 
