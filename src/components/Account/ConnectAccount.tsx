@@ -170,6 +170,7 @@ const ConnectAccount: React.FC<WantedChain> = (props) => {
               fontSize: "17px",
               fontWeight: "500"
             }}
+            style={{ display: "flex" }}
           >
             Account
             <Card

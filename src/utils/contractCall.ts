@@ -44,7 +44,6 @@ export const claimToken = async (
   signer: ethers.Signer | ethers.providers.Provider | undefined
 ): Promise<any> => {
   const whitelistInstance = new ethers.Contract(whitelist, whitelist_ABI, signer);
-  console.log(merkleProof);
 
   try {
     const tx = await whitelistInstance.claim(merkleProof);

@@ -27,7 +27,6 @@ export const ClaimToken: React.FC<any> = ({ amount }) => {
     if (account) {
       // Backend call: Compare proof with merkel tree
       const response = await checkMerkleProof(account);
-      console.log(response);
 
       // Contract call: claim tokens if claimable amount + whitelisted
       const receipt = await claimToken(response.data, signer);
