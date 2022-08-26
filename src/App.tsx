@@ -3,7 +3,6 @@ import { useWeb3React } from "@web3-react/core";
 import { Buffer } from "buffer";
 import ConnectAccount from "./components/Account/ConnectAccount";
 import DisplayPane from "./components/displayPane/DisplayPane";
-// import ChainSelector from "./components/ChainSelector";
 import AdminPane from "./components/admin/AdminPane";
 import ChainVerification from "./components/chains/ChainVerification";
 import { getAdminAddress } from "./utils/contractCall";

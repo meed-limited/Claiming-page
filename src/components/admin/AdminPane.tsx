@@ -11,6 +11,7 @@ const styles = {
   container: {
     background: "white",
     width: "60%",
+    minWidth: "350px",
     textAlign: "center",
     margin: "auto",
     padding: "30px 0",
