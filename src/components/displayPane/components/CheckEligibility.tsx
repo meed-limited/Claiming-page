@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Button } from "antd";
 import { checkEligibility } from "../../../utils/contractCall";
@@ -33,6 +33,13 @@ export const CheckEligibility: React.FC<any> = ({ isEligible, setIsEligible, amo
     }
     return;
   };
+
+  useEffect(() => {
+    if (!account) {
+      setHasChecked(false);
+    }
+    return;
+  }, [account]);
 
   return (
     <div style={styles.container}>

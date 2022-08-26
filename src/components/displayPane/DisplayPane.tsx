@@ -1,6 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
 import { Spin } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CheckEligibility } from "./components/CheckEligibility";
 import { ClaimToken } from "./components/ClaimToken";
 
@@ -10,6 +10,7 @@ const styles = {
   container: {
     background: "white",
     width: "70%",
+    minWidth: "350px",
     border: "solid #75e287 1px",
     borderRadius: "20px",
     margin: "auto",
@@ -31,10 +32,17 @@ const styles = {
 } as const;
 
 const DisplayPane: React.FC = () => {
-  const { isActivating, error, isActive } = useWeb3React();
+  const { isActivating, error, isActive, account } = useWeb3React();
   const [isEligible, setIsEligible] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!account) {
+      setIsEligible(false);
+    }
+    return;
+  }, [account]);
 
   return (
     <div style={styles.container}>

@@ -32,7 +32,16 @@ border: none !important;
   font-weight: 500 !important;
 }
 
+.ant-modal {
+  margin: auto !important;
+  width: 350px !important;
+  min-width: 350px !important;
+}
+
 .ant-modal-content {
+
   border-radius: 15px !important;
+  min-width: 350px;
+  margin-inline: auto !important;
   /* background-image: url("./assets/images/background.png") !important; */
 }

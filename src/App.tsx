@@ -3,14 +3,18 @@ import { useWeb3React } from "@web3-react/core";
 import { Buffer } from "buffer";
 import ConnectAccount from "./components/Account/ConnectAccount";
 import DisplayPane from "./components/displayPane/DisplayPane";
-import ChainSelector from "./components/ChainSelector";
+// import ChainSelector from "./components/ChainSelector";
 import AdminPane from "./components/admin/AdminPane";
+import ChainVerification from "./components/chains/ChainVerification";
 import { getAdminAddress } from "./utils/contractCall";
 import background from "./assets/images/background.png";
 import LepriconLogo_Black from "./assets/images/LepriconLogo_Black.png";
+import l3p from "./assets/images/l3p.png";
 import { Layout } from "antd";
 import "antd/dist/antd.css";
 import "./App.css";
+import { useWindowWidthAndHeight } from "./hooks/useWindowWidthAndHeight";
+import { isProdEnv } from "./constants/constants";
 
 const { Header, Footer } = Layout;
 
@@ -25,8 +29,13 @@ const styles = {
     overflow: "auto",
     fontFamily: "Sora, sans-serif"
   },
-  header: {
+  wrapper: {
     position: "fixed",
+    width: "100%",
+    top: 0,
+    marginBottom: "100px !important"
+  },
+  header: {
     zIndex: 1,
     width: "100%",
     backgroundColor: "transparent",
@@ -40,7 +49,6 @@ const styles = {
     display: "flex",
     gap: "10px",
     alignItems: "center",
-    paddingRight: "10px",
     fontSize: "15px",
     fontWeight: "600"
   },
@@ -80,7 +88,10 @@ function App() {
   const [isOwnerPaneOpen, setIsOwnerPaneOpen] = useState<boolean>(false);
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const [, setOwnerAddress] = useState<string>();
-  // const [ownerAddress, setOwnerAddress] = useState<string>();
+  const [isSupportedChain, setIsSupportedChain] = useState<boolean>(true);
+  const [width] = useWindowWidthAndHeight();
+
+  const isMobile = width <= 750;
 
   const openAdminPane = () => {
     if (!isOwnerPaneOpen) {
@@ -107,20 +118,36 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, account, chainId]);
 
+  useEffect(() => {
+    if (chainId) {
+      if (isProdEnv && chainId === 56) {
+        setIsSupportedChain(true);
+      } else if (!isProdEnv && chainId === 97) {
+        setIsSupportedChain(true);
+      } else setIsSupportedChain(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chainId, account]);
+
   return (
     <Layout style={styles.layout}>
-      <Header style={styles.header}>
-        <Logo />
-        <div style={styles.headerRight}>
-          {isOwner && isActive && (
-            <button style={styles.adminButton} onClick={openAdminPane}>
-              Admin
-            </button>
-          )}
-          <ChainSelector />
-          <ConnectAccount />
-        </div>
-      </Header>
+      <div style={styles.wrapper}>
+        {chainId && !isSupportedChain && <ChainVerification />}
+        <Header style={styles.header}>
+          {isMobile ? <LogoMin /> : <Logo />}
+
+          <div style={{ ...styles.headerRight, paddingRight: isMobile ? "0" : "20px" }}>
+            {isOwner && isActive && (
+              <button style={styles.adminButton} onClick={openAdminPane}>
+                Admin
+              </button>
+            )}
+            {/* <ChainSelector /> */}
+            <ConnectAccount />
+          </div>
+        </Header>
+      </div>
+      {chainId && !isSupportedChain && <div style={{ marginBottom: "51px" }}></div>}
       <div style={styles.content}>
         {isOwner && isOwnerPaneOpen ? (
           <AdminPane setOwnerAddress={setOwnerAddress} setIsOwnerPaneOpen={setIsOwnerPaneOpen} />
@@ -142,5 +169,6 @@ function App() {
 }
 
 export const Logo = () => <img src={LepriconLogo_Black} alt="LepriconLogo_Black" width="130px" />;
+export const LogoMin = () => <img src={l3p} alt="LepriconLogo_small" width="40px" />;
 
 export default App;

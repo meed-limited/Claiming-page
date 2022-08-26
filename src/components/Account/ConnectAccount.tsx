@@ -33,7 +33,7 @@ const styles = {
     fontWeight: "600",
     letterSpacing: "0.2px",
     fontSize: "15px",
-    margin: "20px 20px",
+    marginBlock: "20px",
     border: "none",
     background: "black",
     color: "white"
@@ -165,7 +165,7 @@ const ConnectAccount: React.FC<WantedChain> = (props) => {
             footer={null}
             onCancel={() => setIsModalVisible(false)}
             bodyStyle={{
-              width: "400px",
+              width: "350px",
               padding: "15px",
               fontSize: "17px",
               fontWeight: "500"
