@@ -1,10 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import { CheckEligibility } from "./components/CheckEligibility";
-import { ClaimToken } from "./components/ClaimToken";
-
-import { Status } from "./components/Status";
+import { CheckEligibility, ClaimToken, ContactUs, Status } from "./components";
 
 const styles = {
   container: {
@@ -34,6 +31,7 @@ const styles = {
 const DisplayPane: React.FC = () => {
   const { isActivating, error, isActive, account } = useWeb3React();
   const [isEligible, setIsEligible] = useState<boolean>(false);
+  const [hasChecked, setHasChecked] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -53,10 +51,13 @@ const DisplayPane: React.FC = () => {
           <CheckEligibility
             isEligible={isEligible}
             setIsEligible={setIsEligible}
+            hasChecked={hasChecked}
+            setHasChecked={setHasChecked}
             amount={amount}
             setAmount={setAmount}
           />
           {isEligible && <ClaimToken amount={amount} setLoading={setLoading} />}
+          {hasChecked && <ContactUs />}
         </Spin>
       </div>
     </div>

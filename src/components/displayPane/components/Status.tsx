@@ -10,7 +10,7 @@ const styles = {
   }
 } as const;
 
-export function Status({
+export const Status: React.FC<any> = ({
   isActivating,
   error,
   isActive
@@ -18,7 +18,7 @@ export function Status({
   isActivating: ReturnType<Web3ReactHooks["useIsActivating"]>;
   error: ReturnType<Web3ReactHooks["useError"]>;
   isActive: ReturnType<Web3ReactHooks["useIsActive"]>;
-}) {
+}) => {
   return (
     <div style={styles.display}>
       {error ? (
@@ -41,4 +41,4 @@ export function Status({
       )}
     </div>
   );
-}
+};

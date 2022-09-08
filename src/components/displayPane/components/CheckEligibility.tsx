@@ -1,7 +1,8 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Button } from "antd";
 import { checkEligibility } from "../../../utils/contractCall";
+import { SUPPORTED_CHAIN } from "../../../constants/constants";
 
 const styles = {
   container: {
@@ -14,11 +15,18 @@ const styles = {
   }
 } as const;
 
-export const CheckEligibility: React.FC<any> = ({ isEligible, setIsEligible, amount, setAmount }): ReactElement => {
-  const { account, provider } = useWeb3React();
-  const [hasChecked, setHasChecked] = useState<boolean>(false);
+export const CheckEligibility: React.FC<any> = ({
+  isEligible,
+  setIsEligible,
+  hasChecked,
+  setHasChecked,
+  amount,
+  setAmount
+}): ReactElement => {
+  const { account, provider, chainId } = useWeb3React();
 
   const signer = provider?.getSigner();
+  const isChainOk = chainId === SUPPORTED_CHAIN ? false : true;
 
   const handleClick = async () => {
     if (account) {
@@ -44,7 +52,7 @@ export const CheckEligibility: React.FC<any> = ({ isEligible, setIsEligible, amo
   return (
     <div style={styles.container}>
       <div>
-        <Button type="primary" shape="round" onClick={handleClick}>
+        <Button type="primary" shape="round" onClick={handleClick} disabled={isChainOk}>
           Check Eligibility
         </Button>
       </div>
