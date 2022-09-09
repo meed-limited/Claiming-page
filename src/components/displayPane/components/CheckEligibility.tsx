@@ -59,7 +59,11 @@ export const CheckEligibility: React.FC<any> = ({
       {hasChecked && isEligible ? (
         <div style={{ marginTop: "20px" }}>
           <div>Congratulations, you're eligible to a claim!!!</div>
-          <div>Amount claimable: {amount}</div>
+          <div>
+            <b>Amount claimable: {amount}</b>
+          </div>
+          <br></br>
+          <span style={{ fontSize: "15px" }}>Please note: 1 LPR = 10 L3P</span>
         </div>
       ) : (
         hasChecked &&
