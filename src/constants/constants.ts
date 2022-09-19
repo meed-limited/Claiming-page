@@ -1,12 +1,12 @@
-export const isProdEnv = process.env.NODE_ENV === "production" ? true : false;
+export const isProdEnv = process.env.REACT_APP_ENVIRONMENT === "production" ? true : false;
 export const SUPPORTED_CHAIN: number = isProdEnv ? 56 : 97;
 export const MAX_INT = 2 ** 256 - 1;
 
-export const MERKLE_ROOT = "0x5d562679df5117898677aada33ece1e11156c211b7ec7b36b0dc608800bd022e"; // To Edit
+export const MERKLE_ROOT = "0x84731969185cca300aeec0f4ae6e221a35a2dafcbdecc11b399ecf8671f64f1e"; // To Edit
 
 // Production
-export const TOKEN = "";
-export const WHITELIST_CONTRACT = "0x504d9046B85a543FF7d29B39d6906E4354b2B700"; // BSC
+export const TOKEN = "0x91191A15E778d46255FC9AcD37D028228D97e786";
+export const WHITELIST_CONTRACT = "0xd7bF716e122682504f316b0f71825Dc1Fe203851"; // BSC
 
 // Development
 export const TOKEN_TEST = "0xE413Bfbc963fdB56Fe12A2501aa58cD4913553ef";
